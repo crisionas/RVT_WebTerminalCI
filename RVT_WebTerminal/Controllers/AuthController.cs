@@ -44,31 +44,27 @@ namespace RVT_WebTerminal.Controllers
             cfg.CreateMap<LoginModel, AuthMessage>());
             var mapper = new Mapper(config);
             var data = mapper.Map<AuthMessage>(model);
-
-            // TREBUIE DE SCHIMBAT!!!
-
-
-            TempData["pass"] = data.VnPassword;
-
+            //data.Ip_address = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            data.Time = DateTime.Now;
             var response = await user.Auth(data);
             if (response.Status == true)
             {
                 var authclaims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.SerialNumber, EncryptHelper.HashGen(response.IDVN)),
-                    new Claim(ClaimTypes.Name, data.IDNP)
+                    new Claim(ClaimTypes.Name, response.IDVN)
                 };
 
                 var authIdentity = new ClaimsIdentity(authclaims, "User Identity");
 
                 var userPrincipal = new ClaimsPrincipal(new[] { authIdentity });
                 await HttpContext.SignInAsync(userPrincipal);
-                TempData["AlertMessage"] = response.Message;
+                ViewBag.Message = response.Message;
                 return RedirectToAction("Vote", "Auth");
             }
             else
             {
-                TempData["AlertMessage"] = response.Message;
+                ViewBag.Message = response.Message;
                 return View();
             }
         }
@@ -96,19 +92,19 @@ namespace RVT_WebTerminal.Controllers
             data.Email = model.Email;
             data.Birth_date = DateTime.Parse(model.Birth_date);
             data.RegisterDate = DateTime.Now;
-            //data.Ip_address = Request.HttpContext.Connection.RemoteIpAddress.ToString(); ;
+            data.Ip_address = Request.HttpContext.Connection.RemoteIpAddress.ToString(); 
             data.Phone_Number = model.Phone_Number;
 
             var response = await user.Registration(data);
 
             if (response.Status == true)
             {
-                TempData["AlertMessage"] = response.Message;
+                ViewBag.Message = response.Message;
                 return RedirectToAction("Index", "Auth");
             }
             else
             {
-                TempData["AlertMessage"] = response.Message;
+                ViewBag.Message = response.Message;
                 return RedirectToAction("Index", "Home");
             }
 
@@ -126,23 +122,23 @@ namespace RVT_WebTerminal.Controllers
 
         public async Task<ActionResult> Vote(VoteModel vote)
         {
-            var config = new MapperConfiguration(cfg =>
-cfg.CreateMap<VoteModel, VoteMessage>());
-            var mapper = new Mapper(config);
-            var model = mapper.Map<VoteMessage>(vote);
-
-            var pass = TempData["pass"];
             var identity = (ClaimsIdentity)User.Identity;
+            var data = new VoteMessage
+            {
+                IDVN=identity.Name,
+                Party=Convert.ToInt32(vote.Party)
+            };
+
             
-            var response = await user.Vote(model);
+            var response = await user.Vote(data);
             if (response.VoteStatus == true)
             {
-                TempData["AlertMessage"] = response.Message;
+                ViewBag.Message = response.Message;
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                TempData["AlertMessage"] = response.Message;
+                ViewBag.Message = response.Message;
                 return RedirectToAction("Login", "Auth");
             }
         }

@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Logare";
-    var message = TempData["AlertMessage"] ?? string.Empty;
 }
 
 
@@ -61,7 +60,7 @@
                 </div>
             </div>
             <script type="text/javascript">
-        var message = '@message';
+        var message = '@ViewBag.Message';
         if(message)
             alert(message);
             </script>

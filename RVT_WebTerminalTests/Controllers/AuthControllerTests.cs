@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using RVT_WebTerminal.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RVT_WebTerminal.Models;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,37 @@ namespace RVT_WebTerminal.Controllers.Tests
             };
 
             var response = controller.Registration(model);
+
+            Assert.IsNotNull(response);
+        }
+
+        [TestMethod()]
+        public void VoteTest()
+        {
+            var controller = new AuthController();
+            var model = new VoteModel
+            {
+                Party="1"
+
+            };
+
+            var response = controller.Vote(model);
+
+            Assert.IsNotNull(response);
+        }
+
+        [TestMethod()]
+        public void LoginTest()
+        {
+            var controller = new AuthController();
+            var model = new LoginModel
+            {
+                IDNP = "12345678",
+                VnPassword = "Test"
+
+            };
+
+            var response = controller.Login(model);
 
             Assert.IsNotNull(response);
         }

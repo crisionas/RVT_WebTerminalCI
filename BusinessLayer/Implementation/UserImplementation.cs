@@ -98,6 +98,7 @@ namespace BusinessLayer.Implementation
             return new AuthResponse
             {
                 Status = logresponse.Status,
+                IDVN=logresponse.IDVN,
                 Message = logresponse.Message
             };
         }
@@ -123,14 +124,12 @@ namespace BusinessLayer.Implementation
 
             var request_api = new HttpRequestMessage()
             {
-                RequestUri = new Uri("https://localhost:44380/api/Vote"),
+                RequestUri = new Uri("https://localhost:44380/api/Identity/Vote"),
                 Method = HttpMethod.Post,
             };
 
-            var response = client.PostAsync("api/Vote", content);
+            var response = client.PostAsync("api/Identity/Vote", content);
             var voteresponse = new VoteResponse();
-            // if (response.IsCompletedSuccessfully)
-            // {
             try
             {
                 var data_resp = await response.Result.Content.ReadAsStringAsync();
@@ -138,8 +137,9 @@ namespace BusinessLayer.Implementation
                 voteresponse = JsonConvert.DeserializeObject<VoteResponse>(data_resp);
 
             }
-            catch
+            catch(Exception e)
             {
+                throw new Exception(e.Message);
             }
             return new VoteResponse()
             {
