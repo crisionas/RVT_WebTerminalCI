@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "Votează";
+    Layout = "~/Views/Shared/_Auth.cshtml";
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+@model VoteModel
+@Html.ValidationSummary(true)
+@using (Html.BeginForm("Vote", "Auth", FormMethod.Post, new { @id = "VoteForm", @class = "box" }))
+{
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('~/Login/images/img-01.jpg');">
+            <center><img src="~/Index/images/RVTLogo.png" alt=""></center>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span class="glyphicon"></span>Votează-ți favoritul:
+                            <span class="glyphicon"></span>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="radio">
+                                    <label>
+                                        @Html.RadioButtonFor(m => m.Party, "1")
+                                        1. Partidul Verde
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="radio">
+                                    <label>
+                                        @Html.RadioButtonFor(m => m.Party, "2")
+                                        2. Partidul Rosu
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="radio">
+                                    <label>
+                                        @Html.RadioButtonFor(m => m.Party, "3")
+                                        3. Partidul Albastru
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="radio">
+                                    <label>
+                                        @Html.RadioButtonFor(m => m.Party, "4")
+                                        4. Partidul Galben
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="radio">
+                                    <label>
+                                        @Html.RadioButtonFor(m => m.Party, "5")
+                                        5. Partidul Roz
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="container-login100-form-btn p-t-10">
+                            <button class="login100-form-btn ">
+                                Vote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var message = '@message';
+        if(message)
+            alert(message);
+    </script>
+}

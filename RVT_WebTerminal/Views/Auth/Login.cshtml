@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Logare";
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+
+<link rel="stylesheet" type="text/css" href="~/Login/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="~/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="~/Login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<link rel="stylesheet" type="text/css" href="~/Login/vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="~/Login/vendor/css-hamburgers/hamburgers.min.css">
+<link rel="stylesheet" type="text/css" href="~/Login/vendor/select2/select2.min.css">
+<link rel="stylesheet" type="text/css" href="~/Login/css/util.css">
+<link rel="stylesheet" type="text/css" href="~/Login/css/main.css">
+
+<section class="u-clearfix u-section-1" id="sec-0d74">
+    <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-1">
+        @model LoginModel
+        @Html.ValidationSummary(true)
+        @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { @id = "AuthForm", @class = "box" }))
+        {
+            <div class="limiter">
+                <div class="container-login100" style="background-image: url('~/Login/images/img-01.jpg');">
+                    <div class="wrap-login100  p-b-30">
+                        <center><img src="~/Index/images/RVTLogo.png" alt=""></center>
+                        <form class="login100-form validate-form">
+                            <span class="login100-form-title p-b-20">
+                                Logare
+                            </span>
+                            @Html.AntiForgeryToken()
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="IDNP este necesar">
+                                @Html.TextBoxFor(m => m.IDNP, new { placeholder = "IDNP", @class = "input100", @type = "IDNP" })
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </div>
+
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                                @Html.TextBoxFor(m => m.VnPassword, new { placeholder = "Parola", @class = "input100", @type = "Password" })
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+
+                            <div class="container-login100-form-btn p-t-10">
+                                <button class="login100-form-btn" value="Auth" onclick="">
+                                    Login
+                                </button>
+
+                            </div>
+                            <div id="formFooter">
+                                <center>
+                                    <a class="underlineHover" href="#">Ai uitat parola?</a>
+                                    <br /><a class="underlineHover" href="@Url.Action("Registration","Auth")">Nu te-ai înregistrat? Intră aici.</a>
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+        var message = '@message';
+        if(message)
+            alert(message);
+            </script>
+
+        }
+    </div>
+</section>
+
+<script src="~/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="~/Login/vendor/bootstrap/js/popper.js"></script>
+<script src="~/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Login/vendor/select2/select2.min.js"></script>
+<script src="~/Login/js/main.js"></script>
