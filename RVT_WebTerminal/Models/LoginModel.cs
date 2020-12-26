@@ -9,7 +9,7 @@ namespace RVT_WebTerminal.Models
     public class LoginModel
     {
         [Required(ErrorMessage = "Necesar de completat spatiu")]
-        [RegularExpression("^[0-9]*$", ErrorMessage = "Format invallid")]
+        [RegularExpression("^[0-13]*$", ErrorMessage = "Format invallid")]
         [StringLength(13, ErrorMessage = "Lungimea codului personal este din 13 cifre")]
         public string IDNP { get; set; }
 

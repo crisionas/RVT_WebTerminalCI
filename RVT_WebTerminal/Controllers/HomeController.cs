@@ -5,18 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using RVT_WebTerminal.Services;
 
 namespace RVT_WebTerminal.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
 
         public IActionResult Index()
         {
@@ -38,10 +36,19 @@ namespace RVT_WebTerminal.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Contact(ContactModel model)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Email-ul nu este valid. Introduceți altă adresă.");
+                return View(model);
+            }
+
+            TempData["Results"] = "Mesajul a fost transmis cu succes.";
+            return View();
+
         }
     }
 }
