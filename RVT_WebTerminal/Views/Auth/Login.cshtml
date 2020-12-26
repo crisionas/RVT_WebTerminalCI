@@ -16,7 +16,7 @@
     <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-1">
         @model LoginModel
         @Html.ValidationSummary(true)
-        @using (Html.BeginForm("Login", "Auth", FormMethod.Post, new { @id = "AuthForm", @class = "box" }))
+        @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
         {
             <div class="limiter">
                 <div class="container-login100" style="background-image: url('~/Login/images/img-01.jpg');">
@@ -28,7 +28,8 @@
                             </span>
                             @Html.AntiForgeryToken()
                             <div class="wrap-input100 validate-input m-b-10" data-validate="IDNP este necesar">
-                                @Html.TextBoxFor(m => m.IDNP, new { placeholder = "IDNP", @class = "input100", @type = "IDNP" })
+                                @Html.EditorFor(m => m.IDNP, new { htmlAttributes = new { placeholder = "IDNP", @class = "input100", @type = "IDNP" }})
+                                @Html.ValidationMessageFor(m=>m.IDNP)
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
                                     <i class="fa fa-user"></i>
@@ -36,7 +37,8 @@
                             </div>
 
                             <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
-                                @Html.TextBoxFor(m => m.VnPassword, new { placeholder = "Parola", @class = "input100", @type = "Password" })
+                                @Html.EditorFor(m => m.VnPassword, new { htmlAttributes = new { placeholder = "Parola", @class = "input100", @type = "Password" }})
+                                @Html.ValidationMessageFor(m=>m.VnPassword)
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
                                     <i class="fa fa-lock"></i>

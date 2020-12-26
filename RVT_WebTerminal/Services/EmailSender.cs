@@ -18,7 +18,7 @@ namespace RVT_WebTerminal.Services
                 MailAddress From = new MailAddress("rvtvote@gmail.com", "RVT Vote");
                 string username = "rvtvote@gmail.com";
                 //Change your password
-                string password = "Ialoveni1";
+                string password = "**********";
                 // where to send?
                 MailAddress To = new MailAddress("rvtvote@gmail.com");
                 MailMessage msg = new MailMessage(From, To);

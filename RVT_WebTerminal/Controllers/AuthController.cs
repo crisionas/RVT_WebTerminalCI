@@ -40,6 +40,10 @@ namespace RVT_WebTerminal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             var config = new MapperConfiguration(cfg =>
             cfg.CreateMap<LoginModel, AuthMessage>());
             var mapper = new Mapper(config);
@@ -83,6 +87,10 @@ namespace RVT_WebTerminal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Registration(RegisterModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             var data = new RegistrationMessage();
             data.IDNP = model.IDNP;
             data.Name = model.Name;
@@ -100,7 +108,7 @@ namespace RVT_WebTerminal.Controllers
             if (response.Status == true)
             {
                 ViewBag.Message = response.Message;
-                return RedirectToAction("Index", "Auth");
+                return RedirectToAction("Login", "Auth");
             }
             else
             {
@@ -122,6 +130,10 @@ namespace RVT_WebTerminal.Controllers
 
         public async Task<ActionResult> Vote(VoteModel vote)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(vote);
+            }
             var identity = (ClaimsIdentity)User.Identity;
             var data = new VoteMessage
             {

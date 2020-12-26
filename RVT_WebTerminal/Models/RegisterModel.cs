@@ -9,8 +9,8 @@ namespace RVT_WebTerminal.Models
     public class RegisterModel
     {
         [Required(ErrorMessage = "Necesar de completat spatiu")]
-        [RegularExpression("^[0-9]*$", ErrorMessage = "Format invallid")]
-        [StringLength(13, ErrorMessage = "Lungimea codului personal este din 13 cifre")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Format invalid")]
+        [StringLength(13, MinimumLength =13, ErrorMessage = "Lungimea codului personal este din 13 cifre")]
         public string IDNP { get; set; }
         [Required(ErrorMessage = "Necesar de completat spatiu")]
         [MaxLength(255)]
@@ -34,19 +34,5 @@ namespace RVT_WebTerminal.Models
         [Required(ErrorMessage = "Necesar de completat spatiu")]
         [EmailAddress(ErrorMessage = "Nu este valid formatul email")]
         public string Email { get; set; }
-        public bool Empty
-        {
-            get
-            {
-                return (string.IsNullOrWhiteSpace(IDNP) &&
-                        string.IsNullOrWhiteSpace(Name) &&
-                        string.IsNullOrWhiteSpace(Surname) &&
-                        string.IsNullOrWhiteSpace(Gender) &&
-                        string.IsNullOrWhiteSpace(Birth_date) &&
-                        string.IsNullOrWhiteSpace(Region) &&
-                        string.IsNullOrWhiteSpace(Phone_Number) &&
-                        string.IsNullOrWhiteSpace(Email));
-            }
-        }
     }
 }

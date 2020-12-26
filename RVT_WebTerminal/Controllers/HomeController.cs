@@ -46,6 +46,7 @@ namespace RVT_WebTerminal.Controllers
                 return View(model);
             }
 
+            EmailSender.SendContactMessage(model);
             TempData["Results"] = "Mesajul a fost transmis cu succes.";
             return View();
 
