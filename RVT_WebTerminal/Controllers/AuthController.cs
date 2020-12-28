@@ -91,6 +91,7 @@ namespace RVT_WebTerminal.Controllers
             {
                 return View(model);
             }
+            
             var data = new RegistrationMessage();
             data.IDNP = model.IDNP;
             data.Name = model.Name;
