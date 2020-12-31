@@ -38,7 +38,7 @@ namespace RVT_WebTerminal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Contact(ContactModel model)
+        public IActionResult Contact(ContactModel model)
         {
             if (!ModelState.IsValid)
             {

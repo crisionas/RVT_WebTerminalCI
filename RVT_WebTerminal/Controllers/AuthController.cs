@@ -50,27 +50,35 @@ namespace RVT_WebTerminal.Controllers
             var data = mapper.Map<AuthMessage>(model);
             //data.Ip_address = Request.HttpContext.Connection.RemoteIpAddress.ToString();
             data.Time = DateTime.Now;
-            var response = await user.Auth(data);
-            if (response.Status == true)
+            try
             {
-                var authclaims = new List<Claim>()
+                var response = await user.Auth(data);
+                
+                if (response.Status == true)
                 {
-                    new Claim(ClaimTypes.SerialNumber, EncryptHelper.HashGen(response.IDVN)),
-                    new Claim(ClaimTypes.Name, response.IDVN)
-                };
+                    var authclaims = new List<Claim>()
+                    {
+                        new Claim(ClaimTypes.SerialNumber, EncryptHelper.HashGen(response.IDVN)),
+                        new Claim(ClaimTypes.Name, response.IDVN)
+                    };
 
-                var authIdentity = new ClaimsIdentity(authclaims, "User Identity");
+                    var authIdentity = new ClaimsIdentity(authclaims, "User Identity");
 
-                var userPrincipal = new ClaimsPrincipal(new[] { authIdentity });
-                await HttpContext.SignInAsync(userPrincipal);
-                ViewBag.Message = response.Message;
-                return RedirectToAction("Vote", "Auth");
-            }
-            else
-            {
+                    var userPrincipal = new ClaimsPrincipal(new[] {authIdentity});
+                    await HttpContext.SignInAsync(userPrincipal);
+                    ViewBag.Message = response.Message;
+                    return RedirectToAction("Vote", "Auth");
+                }
+
                 ViewBag.Message = response.Message;
                 return View();
+
             }
+            catch
+            {
+                return View("Error");
+            }
+
         }
 
 
@@ -103,18 +111,26 @@ namespace RVT_WebTerminal.Controllers
             data.RegisterDate = DateTime.Now;
             data.Ip_address = Request.HttpContext.Connection.RemoteIpAddress.ToString(); 
             data.Phone_Number = model.Phone_Number;
-
-            var response = await user.Registration(data);
-
-            if (response.Status == true)
+            try
             {
-                ViewBag.Message = response.Message;
-                return RedirectToAction("Login", "Auth");
+
+                var response = await user.Registration(data);
+
+
+                if (response.Status == true)
+                {
+                    ViewBag.Message = response.Message;
+                    return RedirectToAction("Login", "Auth");
+                }
+                else
+                {
+                    ViewBag.Message = response.Message;
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            else
+            catch
             {
-                ViewBag.Message = response.Message;
-                return RedirectToAction("Index", "Home");
+                return View("Error");
             }
 
 
@@ -141,19 +157,23 @@ namespace RVT_WebTerminal.Controllers
                 IDVN=identity.Name,
                 Party=Convert.ToInt32(vote.Party)
             };
+            try
+            {
+                var response = await user.Vote(data);
+                if (response.VoteStatus == true)
+                {
+                    ViewBag.Message = response.Message;
+                    return RedirectToAction("Index", "Home");
+                }
 
-            
-            var response = await user.Vote(data);
-            if (response.VoteStatus == true)
-            {
-                ViewBag.Message = response.Message;
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
                 ViewBag.Message = response.Message;
                 return RedirectToAction("Login", "Auth");
             }
+            catch
+            {
+                return View("Error");
+            }
+
         }
     }
 }

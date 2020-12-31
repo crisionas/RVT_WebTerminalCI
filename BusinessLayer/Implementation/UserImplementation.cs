@@ -28,34 +28,32 @@ namespace BusinessLayer.Implementation
             var handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
             handler.AllowAutoRedirect = true;
-            var client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:44380/");
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var request_api = new HttpRequestMessage()
+            using (var client = new HttpClient(handler))
             {
-                RequestUri = new Uri("https://localhost:44380/api/Identity/Registrationr"),
-                Method = HttpMethod.Post,
-            };
+                client.BaseAddress = new Uri("https://localhost:44380/");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response = client.PostAsync("api/Identity/Registration", content);
-            var regresp = new RegistrationResponse();
+                var request_api = new HttpRequestMessage()
+                {
+                    RequestUri = new Uri("https://localhost:44380/api/Identity/Registrationr"),
+                    Method = HttpMethod.Post,
+                };
 
-            try
-            {
-                var data_resp = await response.Result.Content.ReadAsStringAsync();
-                regresp = JsonConvert.DeserializeObject<RegistrationResponse>(data_resp);
+                var response = client.PostAsync("api/Identity/Registration", content);
+                var regresp = new RegistrationResponse();
 
+                try
+                {
+                    var data_resp = await response.Result.Content.ReadAsStringAsync();
+                    regresp = JsonConvert.DeserializeObject<RegistrationResponse>(data_resp);
+
+                }
+                catch
+                {
+                }
+
+                return regresp;
             }
-            catch
-            {
-            }
-
-            return new RegistrationResponse
-            {
-                Status = regresp.Status,
-                Message = regresp.Message
-            };
         }
 
 
@@ -73,34 +71,33 @@ namespace BusinessLayer.Implementation
             var handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
             handler.AllowAutoRedirect = true;
-            var client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:44380/");
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var request_api = new HttpRequestMessage()
+            using (var client = new HttpClient(handler))
             {
-                RequestUri = new Uri("https://localhost:44380/api/Identity/Auth"),
-                Method = HttpMethod.Post,
-            };
+                client.BaseAddress = new Uri("https://localhost:44380/");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response = client.PostAsync("api/Identity/Auth", content);
-            var logresponse = new AuthResponse();
-            try
-            {
-                var data_resp = await response.Result.Content.ReadAsStringAsync();
+                var request_api = new HttpRequestMessage()
+                {
+                    RequestUri = new Uri("https://localhost:44380/api/Identity/Auth"),
+                    Method = HttpMethod.Post,
+                };
 
-                logresponse = JsonConvert.DeserializeObject<AuthResponse>(data_resp);
+                var response = client.PostAsync("api/Identity/Auth", content);
+                var logresponse = new AuthResponse();
+                try
+                {
+                    var data_resp = await response.Result.Content.ReadAsStringAsync();
 
+                    logresponse = JsonConvert.DeserializeObject<AuthResponse>(data_resp);
+
+                }
+                catch
+                {
+                }
+
+                return logresponse;
             }
-            catch
-            {
-            }
-            return new AuthResponse
-            {
-                Status = logresponse.Status,
-                IDVN=logresponse.IDVN,
-                Message = logresponse.Message
-            };
+
         }
 
 
@@ -118,35 +115,27 @@ namespace BusinessLayer.Implementation
             var handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
             handler.AllowAutoRedirect = true;
-            var client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:44380/");
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var request_api = new HttpRequestMessage()
+            using (var client = new HttpClient(handler))
             {
-                RequestUri = new Uri("https://localhost:44380/api/Identity/Vote"),
-                Method = HttpMethod.Post,
-            };
+                client.BaseAddress = new Uri("https://localhost:44380/");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response = client.PostAsync("api/Identity/Vote", content);
-            var voteresponse = new VoteResponse();
-            try
-            {
-                var data_resp = await response.Result.Content.ReadAsStringAsync();
+                var response = client.PostAsync("api/Identity/Vote", content);
+                var voteresponse = new VoteResponse();
+                try
+                {
+                    var data_resp = await response.Result.Content.ReadAsStringAsync();
 
-                voteresponse = JsonConvert.DeserializeObject<VoteResponse>(data_resp);
+                    voteresponse = JsonConvert.DeserializeObject<VoteResponse>(data_resp);
 
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+
+                return voteresponse;
             }
-            catch(Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-            return new VoteResponse()
-            {
-                VoteStatus = voteresponse.VoteStatus,
-                Message = voteresponse.Message,
-                ProcessedTime = voteresponse.ProcessedTime
-            };
         }
     }
 }
