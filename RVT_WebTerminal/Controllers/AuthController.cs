@@ -12,7 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RVT_WebTerminal.Controllers
 {
@@ -32,7 +34,7 @@ namespace RVT_WebTerminal.Controllers
         /// <returns></returns>
         public IActionResult Login()
         {
-
+            ViewBag.State = false;
             return View();
         }
 
@@ -67,10 +69,11 @@ namespace RVT_WebTerminal.Controllers
                     var userPrincipal = new ClaimsPrincipal(new[] {authIdentity});
                     await HttpContext.SignInAsync(userPrincipal);
                     ViewBag.Message = response.Message;
-                    return RedirectToAction("Vote", "Auth");
+                    ViewBag.State = response.Status;
                 }
 
                 ViewBag.Message = response.Message;
+                ViewBag.State = response.Status;
                 return View();
 
             }
@@ -88,6 +91,7 @@ namespace RVT_WebTerminal.Controllers
         /// <returns></returns>
         public IActionResult Registration()
         {
+            ViewBag.State = false;
             return View();
         }
         
@@ -120,13 +124,15 @@ namespace RVT_WebTerminal.Controllers
                 if (response.Status == true)
                 {
                     ViewBag.Message = response.Message;
-                    return RedirectToAction("Login", "Auth");
+                    ViewBag.State = response.Status;
                 }
                 else
                 {
                     ViewBag.Message = response.Message;
-                    return RedirectToAction("Index", "Home");
+                    ViewBag.State = response.Status;
                 }
+
+                return View();
             }
             catch
             {
@@ -140,11 +146,14 @@ namespace RVT_WebTerminal.Controllers
         /// Vote View
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         public IActionResult Vote()
         {
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Vote(VoteModel vote)
         {
             if (!ModelState.IsValid)
@@ -165,9 +174,9 @@ namespace RVT_WebTerminal.Controllers
                     ViewBag.Message = response.Message;
                     return RedirectToAction("Index", "Home");
                 }
-
                 ViewBag.Message = response.Message;
-                return RedirectToAction("Login", "Auth");
+                return View();
+
             }
             catch
             {

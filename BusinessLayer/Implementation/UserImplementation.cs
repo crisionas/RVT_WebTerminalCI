@@ -35,7 +35,7 @@ namespace BusinessLayer.Implementation
 
                 var request_api = new HttpRequestMessage()
                 {
-                    RequestUri = new Uri("https://localhost:44380/api/Identity/Registrationr"),
+                    RequestUri = new Uri("https://localhost:44380/api/Identity/Registration"),
                     Method = HttpMethod.Post,
                 };
 

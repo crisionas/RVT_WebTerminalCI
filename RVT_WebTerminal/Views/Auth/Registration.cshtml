@@ -33,7 +33,7 @@
                             </span>
                             @Html.AntiForgeryToken()
                             <div class="wrap-input100 validate-input m-b-10" data-validate="Name is required">
-                                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { placeholder = "Nume", @class = "input100", @type = "Name" }})
+                                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { placeholder = "Nume", @class = "input100", @type = "Name" } })
                                 @Html.ValidationMessageFor(m => m.Name)
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
@@ -43,7 +43,7 @@
                             </div>
                             <div class="wrap-input100 validate-input m-b-10" data-validate="Surname is required">
                                 <span class="focus-input100"></span>
-                                @Html.EditorFor(m => m.Surname, new { htmlAttributes = new { placeholder = "Prenume", @class = "input100", @type = "Surname" }})
+                                @Html.EditorFor(m => m.Surname, new { htmlAttributes = new { placeholder = "Prenume", @class = "input100", @type = "Surname" } })
                                 @Html.ValidationMessageFor(m => m.Surname)
                                 <span class="symbol-input100">
                                     <i class="fa fa-user"></i>
@@ -51,7 +51,7 @@
                             </div>
                             <div class="wrap-input100 validate-input m-b-10" data-validate="Gender is required">
                                 <div class="wrap-input100 validate-input m-b-10" data-validate="Region is required">
-                                    @Html.DropDownListFor(m => m.Gender, new SelectListItem[] { new SelectListItem() { Text = "Masculin", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } }, new { @onchange = "BindTextBoxValue(this.value)", @class = "input100", placeholder = "Gender", style = "color: slategrey" })
+                                    @Html.DropDownListFor(m => m.Gender, new SelectListItem[] { new SelectListItem() { Text = "Masculin", Value = "Masculin" }, new SelectListItem() { Text = "Feminin", Value = "Feminin" } }, new { @onchange = "BindTextBoxValue(this.value)", @class = "input100", placeholder = "Gender", style = "color: slategrey" })
 
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
@@ -59,7 +59,7 @@
                                     </span>
                                 </div>
                                 <div class="wrap-input100 validate-input m-b-10" data-validate="Birth date is required">
-                                    @Html.EditorFor(m => m.Birth_date, new { htmlAttributes = new { placeholder = "Birth date", @class = "input100", @type = "date", style = "color: slategrey" }})
+                                    @Html.EditorFor(m => m.Birth_date, new { htmlAttributes = new { placeholder = "Birth date", @class = "input100", @type = "date", style = "color: slategrey" } })
                                     @Html.ValidationMessageFor(m => m.Birth_date)
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
@@ -67,7 +67,7 @@
                                     </span>
                                 </div>
                                 <div class="wrap-input100 validate-input m-b-10" data-validate="IDNP is required">
-                                    @Html.EditorFor(m => m.IDNP, new { htmlAttributes = new { placeholder = "IDNP", @class = "input100", @type = "IDNP" }})
+                                    @Html.EditorFor(m => m.IDNP, new { htmlAttributes = new { placeholder = "IDNP", @class = "input100", @type = "IDNP" } })
                                     @Html.ValidationMessageFor(m => m.IDNP)
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="wrap-input100 validate-input m-b-10" data-validate="Phone number is required">
 
-                                    @Html.EditorFor(m => m.Phone_Number, new { htmlAttributes = new { placeholder = "Numărul de telefon", @class = "input100", @type = "phonenumber" }})
+                                    @Html.EditorFor(m => m.Phone_Number, new { htmlAttributes = new { placeholder = "Numărul de telefon", @class = "input100", @type = "phonenumber" } })
                                     @Html.ValidationMessageFor(m => m.Phone_Number)
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
@@ -84,7 +84,7 @@
                                     </span>
                                 </div>
                                 <div class="wrap-input100 validate-input m-b-10" data-validate="Email is required">
-                                    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "Email", @class = "input100", @type = "email" }})
+                                    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { placeholder = "Email", @class = "input100", @type = "email" } })
                                     @Html.ValidationMessageFor(m => m.Email)
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
@@ -92,25 +92,25 @@
                                     </span>
                                 </div>
                                 <div class="wrap-input100 validate-input m-b-10" data-validate="Region is required">
-                                    @Html.DropDownListFor(m => m.Region, new SelectListItem[] {new SelectListItem() {Text = "Anenii Noi", Value = "Anenii Noi"},
-            new SelectListItem() {Text = "Bălți", Value = "Balti"},
-            new SelectListItem() {Text = "Tighina", Value = "Tighina"},
-            new SelectListItem() {Text = "Briceni", Value = "Briceni"},
+                                    @Html.DropDownListFor(m => m.Region, new SelectListItem[] {new SelectListItem() {Text = "Municipiul Chișinău", Value = "Municipiul Chisinau"},
+            new SelectListItem() {Text = "Municipiul Bălți", Value = "Municipiul Balti"},
+            new SelectListItem() {Text = "Municipiul Bender (Tighina)", Value = "Municipiul Bender (Tighina)"},
+            new SelectListItem() {Text = "Anenii Noi", Value = "Anenii Noi"},
             new SelectListItem() {Text = "Basarabeasca", Value = "Basarabeasca"},
+            new SelectListItem() {Text = "Briceni", Value = "Briceni"},
             new SelectListItem() {Text = "Cahul", Value = "Cahul"},
+            new SelectListItem() {Text = "Camenca", Value = "Camenca"},
             new SelectListItem() {Text = "Călărași", Value = "Calarasi"},
+            new SelectListItem() {Text = "Cantemir", Value = "Cantemir"},
+            new SelectListItem() {Text = "Caușeni", Value = "Causeni"},
             new SelectListItem() {Text = "Cimișlia", Value = "Cimislia"},
             new SelectListItem() {Text = "Criuleni", Value = "Criuleni"},
-            new SelectListItem() {Text = "Căușeni", Value = "Causeni"},
-            new SelectListItem() {Text = "Cantemir", Value = "Cantemir"},
-            new SelectListItem() {Text = "Chișinău", Value = "Chisinau"},
             new SelectListItem() {Text = "Dondușeni", Value = "Donduseni"},
             new SelectListItem() {Text = "Drochia", Value = "Drochia"},
             new SelectListItem() {Text = "Dubăsari", Value = "Dubasari"},
             new SelectListItem() {Text = "Edineț", Value = "Edinet"},
             new SelectListItem() {Text = "Fălești", Value = "Falesti"},
             new SelectListItem() {Text = "Florești", Value = "Floresti"},
-            new SelectListItem() {Text = "Unitatea Teritorială Autonomă Gagauzia", Value = "Unitatea Teritoriala Autonoma Gagauzia"},
             new SelectListItem() {Text = "Glodeni", Value = "Glodeni"},
             new SelectListItem() {Text = "Hîncești", Value = "Hincesti"},
             new SelectListItem() {Text = "Ialoveni", Value = "Ialoveni"},
@@ -120,14 +120,14 @@
             new SelectListItem() {Text = "Orhei", Value = "Orhei"},
             new SelectListItem() {Text = "Rezina", Value = "Rezina"},
             new SelectListItem() {Text = "Rîșcani", Value = "Riscani"},
-            new SelectListItem() {Text = "Șoldănești", Value = "Soldanesti"},
             new SelectListItem() {Text = "Sîngerei", Value = "Singerei"},
-            new SelectListItem() {Text = "Unitatea Teritorială din Stînga Nistrului", Value = "Unitatea Teritoriala din Stinga Nistrului"},
-            new SelectListItem() {Text = "Soroca", Value = "Soroca"},
-            new SelectListItem() {Text = "Strășeni", Value = "Straseni"},
-            new SelectListItem() {Text = "Stefan Vodă", Value = "Stefan Voda"},
+            new SelectListItem() {Text = "Șoldănești", Value = "Soldanesti"},
+            new SelectListItem() {Text = "Stefan Vodă", Value = "Unitatea Teritoriala din Stinga Nistrului"},
             new SelectListItem() {Text = "Taraclia", Value = "Taraclia"},
-            new SelectListItem() {Text = "Ungheni", Value = "Ungheni"}
+            new SelectListItem() {Text = "Telenești", Value = "Telenesti"},
+            new SelectListItem() {Text = "Ungheni", Value = "Ungheni"},
+            new SelectListItem() {Text = "Unitatea Teritorială Autonomă Gagauzia", Value = "Unitatea Teritoriala Autonoma Gagauzia"},
+            new SelectListItem() {Text = "Unitățile Administrativ-Teritoriale din Stînga Nistrului", Value = "Stinga Nistrului"}
                                }, new { @onchange = "BindTextBoxValue(this.value)", @class = "input100", placeholder = "Region", style = "color: slategrey" })
                                     @Html.ValidationMessageFor(m => m.Region)
                                     <span class="focus-input100"></span>
@@ -158,12 +158,6 @@
                     </div>
                 </div>
             </div>
-            <script type="text/javascript">
-                    var message = '@ViewBag.Message';
-                if (message)
-                    alert(message);
-            </script>
-
         </div>
     </section>
     <script src="~/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -171,4 +165,48 @@
     <script src="~/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Login/vendor/select2/select2.min.js"></script>
     <script src="~/Login/js/main.js"></script>
+
+
+    <div class="modal fade" id="aModal" tabindex="-1" role="dialog" aria-labelledby="aModalLabel" align="center"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="aModalLabel">Message</h4>
+                </div>
+                <div class="modal-body">
+                    @ViewBag.Message
+                </div>
+                <div class="modal-footer">
+                    <button id="myButton" type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.Message != null)
+    {
+
+        <script type="text/javascript">
+            $(function () {
+                $("#aModal").modal('show');
+            });
+
+        </script>
+    }
+    @if (ViewBag.State)
+    {
+        <script>
+
+            document.getElementById("myButton").onclick = function () {
+                window.location.href = "/Auth/Login";
+            };
+
+        </script>
+    }
 }
+<script src="~/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="~/Login/vendor/bootstrap/js/popper.js"></script>
+<script src="~/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Login/vendor/select2/select2.min.js"></script>
+<script src="~/Login/js/main.js"></script>

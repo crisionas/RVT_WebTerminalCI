@@ -12,7 +12,7 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <div class="limiter">
         <div class="container-login100" style="background-image: url('~/Login/images/img-01.jpg');">
-            <center><img src="~/Index/images/RVTLogo.png" alt=""></center>
+            <center><img src="~/images/RVTLogo.png" alt=""></center>
             <div class="col-md-6 col-md-offset-3">
                 <div class="panel panel-default">
 
@@ -28,7 +28,7 @@
                                 <div class="radio">
                                     <label>
                                         @Html.RadioButtonFor(m => m.Party, "1")
-                                        1. Partidul Verde
+                                        1. Partidul Verde<div style="width: 30px;height: 30px;background: #00FF27 " align="left" />
                                     </label>
                                 </div>
                             </li>
@@ -37,6 +37,7 @@
                                     <label>
                                         @Html.RadioButtonFor(m => m.Party, "2")
                                         2. Partidul Rosu
+                                        <div style="width: 30px; height: 30px;background: #FF0000" />
                                     </label>
                                 </div>
                             </li>
@@ -46,13 +47,16 @@
                                         @Html.RadioButtonFor(m => m.Party, "3")
                                         3. Partidul Albastru
                                     </label>
+                                    <div style="width: 30px; height: 30px;background: #0004FF" />
                                 </div>
                             </li>
                             <li class="list-group-item">
                                 <div class="radio">
+
                                     <label>
                                         @Html.RadioButtonFor(m => m.Party, "4")
                                         4. Partidul Galben
+                                        <div style="width: 30px;height: 30px;background: #F7FF00" />
                                     </label>
                                 </div>
                             </li>
@@ -61,6 +65,7 @@
                                     <label>
                                         @Html.RadioButtonFor(m => m.Party, "5")
                                         5. Partidul Roz
+                                        <div style="width: 30px; height: 30px; background: #E800C5" />
                                     </label>
                                 </div>
                             </li>
@@ -77,9 +82,41 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        var message = '@ViewBag.Message';
-        if(message)
-            alert(message);
+
+    <div class="modal fade" id="aModal" tabindex="-1" role="dialog" aria-labelledby="aModalLabel" align="center"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="aModalLabel">Message</h4>
+                </div>
+                <div class="modal-body">
+                    @ViewBag.Message
+                </div>
+                <div class="modal-footer">
+                    <button id="myButton" type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.Message != null)
+    {
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $("#aModal").modal('show');
+            });
+
+        </script>
+    }
+
+    <script>
+        
+            document.getElementById("myButton").onclick = function () {
+            window.location.href = "/Home/Index";
+            };
     </script>
+
 }

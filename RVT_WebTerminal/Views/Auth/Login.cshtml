@@ -47,13 +47,12 @@
 
                             <div class="container-login100-form-btn p-t-10">
                                 <button class="login100-form-btn" value="Auth" onclick="">
-                                    Login
+                                    Loghează-te
                                 </button>
 
                             </div>
                             <div id="formFooter">
                                 <center>
-                                    <a class="underlineHover" href="#">Ai uitat parola?</a>
                                     <br /><a class="underlineHover" href="@Url.Action("Registration","Auth")">Nu te-ai înregistrat? Intră aici.</a>
                                 </center>
                             </div>
@@ -61,12 +60,44 @@
                     </div>
                 </div>
             </div>
-            <script type="text/javascript">
-        var message = '@ViewBag.Message';
-        if(message)
-            alert(message);
-            </script>
 
+            <div class="modal fade" id="aModal" tabindex="-1" role="dialog" aria-labelledby="aModalLabel" align="center"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="aModalLabel">Message</h4>
+                        </div>
+                        <div class="modal-body">
+                            @ViewBag.Message
+                        </div>
+                        <div class="modal-footer">
+                            <button id="myButton" type="button" class="btn btn-primary" data-dismiss="modal" >OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (ViewBag.Message != null)
+            {
+
+                <script type="text/javascript">
+                    $(function() {
+                        $("#aModal").modal('show');
+                    });
+
+                </script>
+            }
+            @if (ViewBag.State)
+            {
+                <script>
+
+                    document.getElementById("myButton").onclick = function() {
+                        window.location.href = "/Auth/Vote";
+                    };
+
+                </script>
+            }
         }
     </div>
 </section>
