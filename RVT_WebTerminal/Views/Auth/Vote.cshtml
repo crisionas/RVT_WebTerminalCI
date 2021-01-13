@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Auth.cshtml";
 }
 @model VoteModel
-@Html.ValidationSummary(true)
+@Html.ValidationSummary(true, null, new { @class = "text-danger" })
 @using (Html.BeginForm("Vote", "Auth", FormMethod.Post, new { @id = "VoteForm", @class = "box" }))
 {
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">

@@ -71,9 +71,13 @@ namespace RVT_WebTerminal.Controllers
                     ViewBag.Message = response.Message;
                     ViewBag.State = response.Status;
                 }
+                else
+                {
+                    ModelState.AddModelError("", response.Message);
+                    ViewBag.Message = response.Message;
+                    ViewBag.State = response.Status;
+                }
 
-                ViewBag.Message = response.Message;
-                ViewBag.State = response.Status;
                 return View();
 
             }
@@ -99,47 +103,46 @@ namespace RVT_WebTerminal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Registration(RegisterModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
-            }
-            
-            var data = new RegistrationMessage();
-            data.IDNP = model.IDNP;
-            data.Name = model.Name;
-            data.Surname = model.Surname;
-            data.Gender = model.Gender;
-            data.Region = model.Region;
-            data.Email = model.Email;
-            data.Birth_date = DateTime.Parse(model.Birth_date);
-            data.RegisterDate = DateTime.Now;
-            data.Ip_address = Request.HttpContext.Connection.RemoteIpAddress.ToString(); 
-            data.Phone_Number = model.Phone_Number;
-            try
-            {
-
-                var response = await user.Registration(data);
-
-
-                if (response.Status == true)
+                var data = new RegistrationMessage();
+                data.IDNP = model.IDNP;
+                data.Name = model.Name;
+                data.Surname = model.Surname;
+                data.Gender = model.Gender;
+                data.Region = model.Region;
+                data.Email = model.Email;
+                data.Birth_date = DateTime.Parse(model.Birth_date);
+                data.RegisterDate = DateTime.Now;
+                data.Ip_address = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+                data.Phone_Number = model.Phone_Number;
+                try
                 {
-                    ViewBag.Message = response.Message;
-                    ViewBag.State = response.Status;
+
+                    var response = await user.Registration(data);
+
+
+                    if (response.Status == true)
+                    {
+                        ViewBag.Message = response.Message;
+                        ViewBag.State = response.Status;
+                    }
+                    else
+                    { 
+                        ModelState.AddModelError("",response.Message);
+                        ViewBag.Message = response.Message;
+                        ViewBag.State = response.Status;
+                    }
+
+                    return View();
                 }
-                else
+                catch
                 {
-                    ViewBag.Message = response.Message;
-                    ViewBag.State = response.Status;
+                    return View("Error");
                 }
-
-                return View();
-            }
-            catch
-            {
-                return View("Error");
             }
 
-
+            return View(model);
         }
 
         /// <summary>
@@ -174,7 +177,11 @@ namespace RVT_WebTerminal.Controllers
                     ViewBag.Message = response.Message;
                     return RedirectToAction("Index", "Home");
                 }
-                ViewBag.Message = response.Message;
+                else
+                {
+                    ModelState.AddModelError("",response.Message);
+                    ViewBag.Message = response.Message;
+                }
                 return View();
 
             }

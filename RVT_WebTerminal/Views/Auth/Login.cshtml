@@ -15,7 +15,7 @@
 <section class="u-clearfix u-section-1" id="sec-0d74">
     <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-1">
         @model LoginModel
-        @Html.ValidationSummary(true)
+        @Html.ValidationSummary(true, null, new { @class = "text-danger" })
         @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
         {
             <div class="limiter">
@@ -29,7 +29,7 @@
                             @Html.AntiForgeryToken()
                             <div class="wrap-input100 validate-input m-b-10" data-validate="IDNP este necesar">
                                 @Html.EditorFor(m => m.IDNP, new { htmlAttributes = new { placeholder = "IDNP", @class = "input100", @type = "IDNP" }})
-                                @Html.ValidationMessageFor(m=>m.IDNP)
+                                @Html.ValidationMessageFor(m=>m.IDNP, null, new { @class = "text-danger" })
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
                                     <i class="fa fa-user"></i>
@@ -38,7 +38,7 @@
 
                             <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
                                 @Html.EditorFor(m => m.VnPassword, new { htmlAttributes = new { placeholder = "Parola", @class = "input100", @type = "Password" }})
-                                @Html.ValidationMessageFor(m=>m.VnPassword)
+                                @Html.ValidationMessageFor(m=>m.VnPassword, null, new { @class = "text-danger" })
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
                                     <i class="fa fa-lock"></i>
