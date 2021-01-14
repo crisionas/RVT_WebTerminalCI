@@ -14,6 +14,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 
 namespace RVT_WebTerminal.Controllers
@@ -58,16 +59,19 @@ namespace RVT_WebTerminal.Controllers
                 
                 if (response.Status == true)
                 {
-                    var authclaims = new List<Claim>()
+                    var userClaims = new List<Claim>()
                     {
                         new Claim(ClaimTypes.SerialNumber, EncryptHelper.HashGen(response.IDVN)),
                         new Claim(ClaimTypes.Name, response.IDVN)
                     };
-
-                    var authIdentity = new ClaimsIdentity(authclaims, "User Identity");
-
-                    var userPrincipal = new ClaimsPrincipal(new[] {authIdentity});
-                    await HttpContext.SignInAsync(userPrincipal);
+                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme, "Auth", "test");
+                    var authProperties = new AuthenticationProperties
+                    {
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30),
+                        IsPersistent = false,
+                    };
+                    var userPrincipal = new ClaimsPrincipal(claimsIdentity);
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
                     ViewBag.Message = response.Message;
                     ViewBag.State = response.Status;
                 }

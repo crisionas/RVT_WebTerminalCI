@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace RVT_WebTerminal
 {
@@ -23,10 +25,9 @@ namespace RVT_WebTerminal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication("CookieAuth")
-                .AddCookie("CookieAuth", config =>
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(config =>
                 {
-                    config.Cookie.Name = "Login.Cookie";
                     config.LoginPath = "/Auth/Login";
                 });
             services.AddControllersWithViews();
@@ -45,11 +46,17 @@ namespace RVT_WebTerminal
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            var cookiePolicyOptions = new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.Strict,
+            };
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseCookiePolicy(cookiePolicyOptions);
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
