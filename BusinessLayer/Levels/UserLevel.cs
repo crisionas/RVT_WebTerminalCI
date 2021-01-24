@@ -12,19 +12,19 @@ namespace BusinessLayer.Levels
 {
     public class UserLevel : UserImplementation, IUser
     {
-        public Task<AuthResponse> Auth(AuthMessage auth)
+        public async Task<AuthResponse> Auth(AuthMessage auth)
         {
-            return AuthAction(auth);
+            return await AuthAction(auth);
         }
 
-        public Task<RegistrationResponse> Registration(RegistrationMessage registration)
+        public async Task<RegistrationResponse> Registration(RegistrationMessage registration)
         {
-            return RegistrationAction(registration);
+            return await RegistrationAction(registration);
         }
 
-        public Task<VoteResponse> Vote(VoteMessage vote)
+        public async Task<VoteResponse> Vote(VoteMessage vote)
         {
-            return VoteAction(vote);
+            return await VoteAction(vote);
         }
     }
 }

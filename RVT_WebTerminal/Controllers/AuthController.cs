@@ -71,7 +71,7 @@ namespace RVT_WebTerminal.Controllers
                         IsPersistent = false,
                     };
                     var userPrincipal = new ClaimsPrincipal(claimsIdentity);
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
                     ViewBag.Message = response.Message;
                     ViewBag.State = response.Status;
                 }
