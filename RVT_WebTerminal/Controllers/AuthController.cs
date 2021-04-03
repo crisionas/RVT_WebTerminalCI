@@ -107,6 +107,7 @@ namespace RVT_WebTerminal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Registration(RegisterModel model)
         {
+            ViewBag.State = false;
             if (ModelState.IsValid)
             {
                 var data = new RegistrationMessage();
@@ -170,8 +171,8 @@ namespace RVT_WebTerminal.Controllers
             var identity = (ClaimsIdentity)User.Identity;
             var data = new VoteMessage
             {
-                IDVN=identity.Name,
-                Party=Convert.ToInt32(vote.Party)
+                IDVN= identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value,
+                Party =Convert.ToInt32(vote.Party)
             };
             try
             {
