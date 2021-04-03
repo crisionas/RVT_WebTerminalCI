@@ -43,6 +43,7 @@ namespace RVT_WebTerminal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
         {
+            ViewBag.State = false;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -157,6 +158,7 @@ namespace RVT_WebTerminal.Controllers
         [Authorize]
         public IActionResult Vote()
         {
+            ViewBag.State = false;
             return View();
         }
 
@@ -164,6 +166,7 @@ namespace RVT_WebTerminal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Vote(VoteModel vote)
         {
+            ViewBag.State = false;
             if (!ModelState.IsValid)
             {
                 return View(vote);
@@ -180,7 +183,6 @@ namespace RVT_WebTerminal.Controllers
                 if (response.VoteStatus == true)
                 {
                     ViewBag.Message = response.Message;
-                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -188,7 +190,6 @@ namespace RVT_WebTerminal.Controllers
                     ViewBag.Message = response.Message;
                 }
                 return View();
-
             }
             catch
             {

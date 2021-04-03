@@ -73,7 +73,7 @@
                     </div>
                     <div class="panel-footer">
                         <div class="container-login100-form-btn p-t-10">
-                            <button class="login100-form-btn ">
+                            <button class="login100-form-btn" value="Auth" onclick="">
                                 Vote
                             </button>
                         </div>
@@ -102,21 +102,29 @@
 
     @if (ViewBag.Message != null)
     {
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
         <script type="text/javascript">
-            $(function() {
+            $(function () {
                 $("#aModal").modal('show');
             });
 
         </script>
     }
+    @if (ViewBag.State)
+    {
+        <script>
 
-    <script>
-        
             document.getElementById("myButton").onclick = function () {
-            window.location.href = "/Home/Index";
+                window.location.href = "/Home/Index";
             };
+
+        </script>
+    }
+    <script>
+
+        document.getElementById("myButton").onclick = function () {
+            window.location.href = "/Home/Index";
+        };
     </script>
 
 }
